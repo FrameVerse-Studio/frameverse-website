@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrameVerse</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+<!-- Custom Config -->
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    'fv-green': '#003700',
+                    'fv-cream': '#F9F9F7',
+                    'fv-peach': '#FFEFD6',
+                    'fv-white': '#FFFFFF',
+                },
+                fontFamily: {
+                    serif: ['Playfair Display', 'serif'],
+                    sans: ['Manrope', 'sans-serif'],
+                }
+            }
+        }
+    }
+</script>
+
+<style>
+@font-face {
+  font-family: 'DreamAvenue';
+  src: url('./Fonts/Dream-Avenue.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.brand-font {
+  font-family: 'DreamAvenue', serif;
+  letter-spacing: 0.12em;
+}
+
+body { 
+    background-color: #F9F9F7; 
+    color: #003700; 
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.delay-100 { animation-delay: 0.2s; }
+.delay-200 { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.img-zoom-container { overflow: hidden; }
+.img-zoom { transition: transform 0.8s ease; }
+.img-zoom-container:hover .img-zoom { transform: scale(1.08); }
+
+::selection {
+    background-color: #003700;
+    color: #FFEFD6;
+}
+
+/* Loading Spinner */
+.spinner {
+    border: 3px solid #FFEFD6;
+    border-top: 3px solid #003700;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body class="antialiased">
+    <!-- Navigation -->
+<nav class="fixed w-full z-50 top-0 bg-fv-cream/80 backdrop-blur-md border-b border-fv-green/10">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-1">
+      <img
+        src="PHOTOS/logo.png"
+        alt="FrameVerse Logo"
+        class="h-10 w-auto"
+      />
+      <span class="brand-font text-[22px] text-fv-green leading-none">
+        FrameVerse
+      </span>
+    </a>
+        <div class="hidden md:flex space-x-10 items-center text-xs tracking-[0.15em] font-sans font-medium text-fv-green/80">
+            <a href="#portfolio" class="hover:text-fv-green transition-colors">PORTFOLIO</a>
+            <a href="#services" class="hover:text-fv-green transition-colors">SERVICES</a>
+            <a href="about_us.html" class="hover:text-fv-green transition-colors">ABOUT US</a>
+            <a href="#contact" class="px-6 py-2.5 bg-fv-green text-fv-peach hover:bg-opacity-90 transition-all duration-300 rounded-sm">BOOK SESSION</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center justify-center pt-20">
+    <div class="absolute inset-0 z-0 flex">
+        <div class="w-full md:w-1/2 bg-fv-cream"></div>
+        <div class="w-full md:w-1/2 bg-fv-peach/30"></div>
+    </div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="fade-in order-2 md:order-1">
+            <div class="flex items-center gap-4 mb-6">
+                <div class="h-px w-12 bg-fv-green"></div>
+                <span class="text-fv-green text-xs tracking-[0.2em] uppercase font-semibold">Creative Studio</span>
+            </div>
+            <h1 class="text-5xl md:text-5xl font-serif font-medium mb-8 leading-[1.1] text-fv-green">
+                Framing Stories <br>
+                <span class="italic">BEYOND BORDER.</span>
+            </h1>
+            <p class="text-fv-green/70 max-w-md mb-10 text-lg font-sans leading-relaxed">
+                We specialize in natural light photography, cultural events, and artistic portraits that feel timeless, not staged.
+            </p>
+            <div class="flex gap-6">
+                <a href="#portfolio" class="px-8 py-3 border border-fv-green text-fv-green font-semibold tracking-widest hover:bg-fv-green hover:text-fv-peach transition-colors uppercase text-xs">View Gallery</a>
+            </div>
+        </div>
+
+        <div class="fade-in delay-100 order-1 md:order-2 relative">
+            <div class="aspect-[3/4] overflow-hidden rounded-t-[100px] border border-fv-green/10">
+                <img src="PHOTOS/FV_Krshn_10.jpg" class="w-full h-full object-cover" alt="Model Portrait">
+            </div>
+            <div class="absolute -bottom-6 -left-6 bg-fv-peach p-6 border border-fv-green/10 shadow-sm hidden md:block">
+                <p class="font-serif text-3xl italic text-fv-green">2+</p>
+                <p class="text-xs uppercase tracking-widest text-fv-green/60 mt-1">Years Experience</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Services Section -->
+<section id="services" class="py-32 bg-fv-peach">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div class="md:col-span-1">
+                <h2 class="text-4xl md:text-5xl font-serif mb-6 text-fv-green">Curated <br>Services</h2>
+                <p class="text-fv-green/70 leading-relaxed mb-8">
+                    We don't just take photos; we design memories. From traditional Kerala dance forms to modern editorial shoots.
+                </p>
+                <a href="#contact" class="inline-flex items-center gap-2 text-xs tracking-widest uppercase border-b border-fv-green pb-1 hover:opacity-70 transition-opacity">
+                    Book A Session <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+
+            <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="p-8 bg-fv-cream border border-fv-green/5 hover:shadow-lg transition-all group">
+                    <i data-lucide="camera" class="w-6 h-6 text-fv-green mb-6"></i>
+                    <h3 class="text-xl font-serif mb-3">Event Coverage</h3>
+                    <p class="text-sm text-fv-green/60 leading-relaxed">Weddings, engagements, and cultural ceremonies captured with a documentary approach.</p>
+                </div>
+                <div class="p-8 bg-fv-cream border border-fv-green/5 hover:shadow-lg transition-all group">
+                    <i data-lucide="sun" class="w-6 h-6 text-fv-green mb-6"></i>
+                    <h3 class="text-xl font-serif mb-3">Natural Portraits</h3>
+                    <p class="text-sm text-fv-green/60 leading-relaxed">Outdoor and studio sessions that focus on your true personality and light.</p>
+                </div>
+                <div class="p-8 bg-fv-cream border border-fv-green/5 hover:shadow-lg transition-all group">
+                    <i data-lucide="feather" class="w-6 h-6 text-fv-green mb-6"></i>
+                    <h3 class="text-xl font-serif mb-3">Heritage & Art</h3>
+                    <p class="text-sm text-fv-green/60 leading-relaxed">Specialized photography for classical dance forms like Kathakali and Mohiniyattam.</p>
+                </div>
+                <div class="p-8 bg-fv-cream border border-fv-green/5 hover:shadow-lg transition-all group">
+                    <i data-lucide="palette" class="w-6 h-6 text-fv-green mb-6"></i>
+                    <h3 class="text-xl font-serif mb-3">Brand Design</h3>
+                    <p class="text-sm text-fv-green/60 leading-relaxed">Minimalist poster designs, stencil art, and branding assets for creatives.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Grid -->
+<section id="portfolio" class="py-32 bg-fv-cream">
+    <div class="max-w-7xl mx-auto px-6 mb-16 text-center">
+        <span class="text-fv-green/50 text-xs tracking-widest uppercase block mb-4">Our Journal</span>
+        <h2 class="text-4xl md:text-5xl font-serif text-fv-green">Visual Stories</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto px-6">
+        <div class="aspect-[3/4] overflow-hidden relative group img-zoom-container">
+            <img src="PHOTOS/Pranav_1" class="w-full h-full object-cover img-zoom">
+            <div class="absolute inset-0 bg-fv-green/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                <div>
+                    <p class="text-fv-peach font-serif text-2xl italic mb-2">Pranav</p>
+                    <p class="text-fv-peach/70 text-xs uppercase tracking-widest">Portrait • Model Shoot</p>
+                </div>
+            </div>
+        </div>
+         <div class="aspect-[3/4] overflow-hidden relative group img-zoom-container md:mt-16">
+            <img src="PHOTOS/Pranav_2" class="w-full h-full object-cover img-zoom">
+             <div class="absolute inset-0 bg-fv-green/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                <div>
+                    <p class="text-fv-peach font-serif text-2xl italic mb-2">Pranav</p>
+                    <p class="text-fv-peach/70 text-xs uppercase tracking-widest">Portrait • Model Shoot</p>
+                </div>
+            </div>
+        </div>
+         <div class="aspect-[3/4] overflow-hidden relative group img-zoom-container">
+            <img src="PHOTOS/Pranav_3" class="w-full h-full object-cover img-zoom">
+             <div class="absolute inset-0 bg-fv-green/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-8 text-center">
+                <div>
+                    <p class="text-fv-peach font-serif text-2xl italic mb-2">Pranav</p>
+                    <p class="text-fv-peach/70 text-xs uppercase tracking-widest">Portrait • Model Shoot</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-20">
+        <a href="gallery.html" class="px-8 py-3 bg-fv-green text-fv-peach text-sm font-semibold tracking-widest hover:bg-fv-green/90 transition-colors">EXPLORE ALL WORK</a>
+    </div>
+</section>
+
+<!-- Comments Section -->
+<section id="comments" class="py-32 bg-fv-cream border-t border-fv-green/5">
+    <div class="max-w-4xl mx-auto px-6">
+
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span class="text-fv-green/50 text-xs tracking-widest uppercase block mb-4">
+                Community
+            </span>
+            <h2 class="text-4xl font-serif text-fv-green">
+                Words From Our Viewers
+            </h2>
+            <p class="mt-4 text-fv-green/70">
+                Share your thoughts or experiences with FrameVerse.
+            </p>
+        </div>
+
+        <!-- Comment Form -->
+        <form id="commentForm" class="space-y-8 mb-20">
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-fv-green/60 mb-2">
+                    Name
+                </label>
+                <input id="commentName" type="text"
+                       class="w-full bg-transparent border-b border-fv-green/30 py-3 focus:border-fv-green outline-none"
+                       placeholder="Your name">
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-fv-green/60 mb-2">
+                    Comment
+                </label>
+                <textarea id="commentText" rows="4"
+                          class="w-full bg-transparent border-b border-fv-green/30 py-3 focus:border-fv-green outline-none"
+                          placeholder="Share your thoughts..."></textarea>
+            </div>
+
+            <button type="submit"
+                    class="px-10 py-4 border border-fv-green text-fv-green text-xs tracking-widest uppercase hover:bg-fv-green hover:text-fv-peach transition-colors">
+                Post Comment
+            </button>
+        </form>
+
+        <!-- Comments List -->
+        <div id="commentsList" class="space-y-12">
+            <!-- Comments appear here -->
+        </div>
+
+    </div>
+</section>
+  
+<script>
+    const form = document.getElementById('commentForm');
+    const list = document.getElementById('commentsList');
+
+    // Load existing comments
+    const comments = JSON.parse(localStorage.getItem('frameverseComments')) || [];
+
+    function renderComments() {
+        list.innerHTML = '';
+        comments.forEach(comment => {
+            const div = document.createElement('div');
+            div.className = 'border-l border-fv-green/30 pl-6';
+
+            div.innerHTML = `
+                <p class="font-serif text-lg text-fv-green mb-2">${comment.name}</p>
+                <p class="text-fv-green/70 leading-relaxed">${comment.text}</p>
+            `;
+            list.appendChild(div);
+        });
+    }
+
+    renderComments();
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const name = document.getElementById('commentName').value.trim();
+        const text = document.getElementById('commentText').value.trim();
+
+        if (!name || !text) return;
+
+        comments.unshift({ name, text });
+        localStorage.setItem('frameverseComments', JSON.stringify(comments));
+
+        form.reset();
+        renderComments();
+    });
+</script>
+
+
+<!-- Contact / Booking Section -->
+<section id="contact" class="py-32 bg-fv-cream border-t border-fv-green/5">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20">
+        
+        <div>
+            <h2 class="text-4xl md:text-5xl font-serif text-fv-green mb-6">Let's create something <span class="italic text-fv-green/60">beautiful.</span></h2>
+            <p class="text-fv-green/70 mb-10 leading-relaxed">
+                Based in Kerala, available worldwide. Fill out the form to discuss your event, shoot idea, or design requirements.
+            </p>
+            
+            <div class="space-y-6">
+                <div class="flex items-center gap-4 text-fv-green">
+                    <div class="w-10 h-10 bg-fv-peach flex items-center justify-center rounded-full">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-sans">frameverse.agency@gmail.com</span>
+                </div>
+                <div class="flex items-center gap-4 text-fv-green">
+                    <div class="w-10 h-10 bg-fv-peach flex items-center justify-center rounded-full">
+                        <i data-lucide="phone" class="w-4 h-4"></i>
+                    </div>
+                    <span class="font-sans">+91 75103 83501 <br>+91 81578 53274 </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form with EmailJS -->
+        <div class="space-y-8 bg-white p-10 shadow-[0_10px_40px_-15px_rgba(0,55,0,0.1)] border border-fv-green/5">
+            <!-- Success/Error Messages -->
+            <div id="statusMessage" class="hidden p-4 rounded-sm text-sm"></div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-fv-green/60 mb-2">Name *</label>
+                    <input type="text" id="userName" required class="w-full bg-fv-cream border-b border-fv-green/20 py-3 px-3 focus:border-fv-green outline-none text-fv-green transition-colors" placeholder="Your Name">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-widest text-fv-green/60 mb-2">Email *</label>
+                    <input type="email" id="userEmail" required class="w-full bg-fv-cream border-b border-fv-green/20 py-3 px-3 focus:border-fv-green outline-none text-fv-green transition-colors" placeholder="email@example.com">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-fv-green/60 mb-2">Interest *</label>
+                <select id="userInterest" required class="w-full bg-fv-cream border-b border-fv-green/20 py-3 px-3 focus:border-fv-green outline-none text-fv-green">
+                    <option value="">Select a service</option>
+                    <option>Portrait Photography</option>
+                    <option>Event Photography</option>
+                    <option>Dance Photography</option>
+                    <option>Digital Poster</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-widest text-fv-green/60 mb-2">Message *</label>
+                <textarea rows="3" id="userMessage" required class="w-full bg-fv-cream border-b border-fv-green/20 py-3 px-3 focus:border-fv-green outline-none text-fv-green transition-colors" placeholder="Tell us about your date, venue, or ideas..."></textarea>
+            </div>
+
+            <button type="button" id="submitBtn" onclick="sendEmail()" class="w-full py-4 bg-fv-green text-fv-peach font-bold tracking-widest hover:opacity-90 transition-opacity text-xs uppercase flex items-center justify-center gap-3">
+                <span id="btnText">Send Inquiry</span>
+                <div id="btnSpinner" class="spinner hidden"></div>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-fv-green text-fv-peach pt-20 pb-10">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 border-b border-fv-peach/10 pb-12">
+        <div class="md:col-span-2">
+             <a href="#" class="brand-font text-7xl tracking-widest block mb-6">
+                FrameVerse</span>
+            </a> 
+            <p class="text-fv-peach/60 max-w-sm font-sans font-light">
+                An artistic endeavor to capture the fleeting moments of life with elegance and authenticity.
+            </p>
+        </div>
+        
+        <div>
+            <h4 class="text-xs uppercase tracking-widest mb-6 font-semibold">Socials</h4>
+            <ul class="space-y-3 text-sm text-fv-peach/70">
+                <li><a href="https://www.instagram.com/frame.verse7/"  target="_blank" class="hover:text-white transition-colors">Instagram</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="text-xs uppercase tracking-widest mb-6 font-semibold">Links</h4>
+            <ul class="space-y-3 text-sm text-fv-peach/70">
+                <li><a href="privacy.html" target="_blank" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                <li><a href="term.html" target="_blank" class="hover:text-white transition-colors">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="text-center text-fv-peach/40 text-xs">
+        &copy; 2025 FrameVerse. Designed with Elegance.
+    </div>
+</footer>
+
+<!-- EmailJS Script -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+
+<script>
+/* ===============================
+   EmailJS Initialization
+================================ */
+(function () {
+    try {
+        const PUBLIC_KEY = "Ptu7LVMD-nvbAJnsa";
+        emailjs.init(PUBLIC_KEY);
+        console.log("EmailJS initialized successfully");
+    } catch (error) {
+        console.error("EmailJS init failed:", error);
+    }
+})();
+
+/* ===============================
+   Send Email Function
+================================ */
+function sendEmail() {
+
+    console.log("sendEmail triggered");
+
+    const name = document.getElementById("userName").value.trim();
+    const email = document.getElementById("userEmail").value.trim();
+    const interest = document.getElementById("userInterest").value.trim();
+    const message = document.getElementById("userMessage").value.trim();
+
+    console.log("Form Data:", name, email, interest, message);
+
+    /* Validation */
+    if (!name || !email || !interest || !message) {
+        showMessage("Please fill all required fields.", "error");
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        showMessage("Please enter a valid email address.", "error");
+        return;
+    }
+
+    /* Button State */
+    const btn = document.getElementById("submitBtn");
+    const btnText = document.getElementById("btnText");
+    const btnSpinner = document.getElementById("btnSpinner");
+
+    btn.disabled = true;
+    btnText.textContent = "Sending...";
+    btnSpinner.classList.remove("hidden");
+
+    /* EmailJS Params */
+    const templateParams = {
+        from_name: name,
+        from_email: email,
+        interest: interest,
+        message: message
+    };
+
+    console.log("Sending email via EmailJS", templateParams);
+
+    emailjs
+        .send("service_s9z52bo", "template_5lj0fuo", templateParams)
+        .then(function (response) {
+            console.log("EmailJS SUCCESS:", response);
+
+            showMessage(
+                "Thank you! Your inquiry has been sent successfully. We will contact you soon.",
+                "success"
+            );
+
+            document.getElementById("userName").value = "";
+            document.getElementById("userEmail").value = "";
+            document.getElementById("userInterest").selectedIndex = 0;
+            document.getElementById("userMessage").value = "";
+
+            btn.disabled = false;
+            btnText.textContent = "Send Inquiry";
+            btnSpinner.classList.add("hidden");
+        })
+        .catch(function (error) {
+            console.error("EmailJS FAILED:", error);
+
+            showMessage(
+                "Something went wrong. Please try again or contact us directly.",
+                "error"
+            );
+
+            btn.disabled = false;
+            btnText.textContent = "Send Inquiry";
+            btnSpinner.classList.add("hidden");
+        });
+}
+
+/* ===============================
+   Status Message UI
+================================ */
+function showMessage(message, type) {
+    const msgDiv = document.getElementById("statusMessage");
+
+    msgDiv.textContent = message;
+    msgDiv.className =
+        type === "success"
+            ? "block p-4 rounded-sm text-sm bg-green-100 text-green-800 border border-green-200"
+            : "block p-4 rounded-sm text-sm bg-red-100 text-red-800 border border-red-200";
+
+    msgDiv.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+    if (type === "success") {
+        setTimeout(() => {
+            msgDiv.classList.add("hidden");
+        }, 5000);
+    }
+}
+</script>
+
+
+<!-- Initialize Icons -->
+<script>
+    lucide.createIcons();
+</script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
