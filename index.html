@@ -67,6 +67,10 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 .img-zoom-container { overflow: hidden; }
 .img-zoom { transition: transform 0.8s ease; }
 .img-zoom-container:hover .img-zoom { transform: scale(1.08); }
@@ -106,11 +110,38 @@ body {
         FrameVerse
       </span>
     </a>
+        
+        <!-- Desktop Menu -->
         <div class="hidden md:flex space-x-10 items-center text-xs tracking-[0.15em] font-sans font-medium text-fv-green/80">
             <a href="#portfolio" class="hover:text-fv-green transition-colors">PORTFOLIO</a>
             <a href="#services" class="hover:text-fv-green transition-colors">SERVICES</a>
             <a href="about_us.html" class="hover:text-fv-green transition-colors">ABOUT US</a>
             <a href="#contact" class="px-6 py-2.5 bg-fv-green text-fv-peach hover:bg-opacity-90 transition-all duration-300 rounded-sm">BOOK SESSION</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobileMenuBtn" class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 focus:outline-none" aria-label="Toggle menu">
+            <span class="mobile-menu-line w-6 h-0.5 bg-fv-green transition-all duration-300"></span>
+            <span class="mobile-menu-line w-6 h-0.5 bg-fv-green transition-all duration-300"></span>
+            <span class="mobile-menu-line w-6 h-0.5 bg-fv-green transition-all duration-300"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 bg-fv-green/95 backdrop-blur-lg translate-x-full transition-transform duration-500 ease-in-out md:hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8 px-6">
+            <a href="#portfolio" class="mobile-nav-link text-2xl font-serif text-fv-peach hover:text-fv-cream transition-colors">Portfolio</a>
+            <a href="#services" class="mobile-nav-link text-2xl font-serif text-fv-peach hover:text-fv-cream transition-colors">Services</a>
+            <a href="about_us.html" class="mobile-nav-link text-2xl font-serif text-fv-peach hover:text-fv-cream transition-colors">About Us</a>
+            <a href="#contact" class="mobile-nav-link px-10 py-4 border-2 border-fv-peach text-fv-peach hover:bg-fv-peach hover:text-fv-green transition-all duration-300 text-lg font-sans tracking-widest">BOOK SESSION</a>
+            
+            <!-- Social Links in Mobile Menu -->
+            <div class="pt-8 border-t border-fv-peach/20 w-full max-w-xs">
+                <a href="https://www.instagram.com/frame.verse7/" target="_blank" class="flex items-center justify-center gap-3 text-fv-peach/80 hover:text-fv-peach transition-colors">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                    <span class="text-sm tracking-wider">@frame.verse7</span>
+                </a>
+            </div>
         </div>
     </div>
 </nav>
@@ -151,6 +182,36 @@ body {
         </div>
     </div>
 </header>
+
+
+<!-- About Us Section -->
+<section id="about-preview" data-section class="py-32 bg-fv-cream border-t border-fv-green/5">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+
+    <span class="text-fv-green/50 text-xs tracking-widest uppercase block mb-4">
+      Who We Are
+    </span>
+
+    <h2 class="text-4xl md:text-5xl font-serif text-fv-green mb-6">
+      More Than Photography
+    </h2>
+
+    <p class="text-fv-green/70 max-w-3xl mx-auto leading-relaxed text-lg mb-10">
+      FrameVerse is a Kerala-based creative studio focused on storytelling through
+      natural light, culture, and emotion. We believe photographs should feel honest,
+      timeless, and deeply personal — not staged or forced.
+    </p>
+
+    <a href="about_us.html"
+       class="inline-block px-10 py-4 border border-fv-green text-fv-green
+              text-xs tracking-widest uppercase font-semibold
+              hover:bg-fv-green hover:text-fv-peach transition-colors duration-300">
+      About Us
+    </a>
+
+  </div>
+</section>
+
 
 <!-- Services Section -->
 <section id="services" class="py-32 bg-fv-peach">
